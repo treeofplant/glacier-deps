@@ -1,5 +1,6 @@
 --[[ 
  glacier ui color picker
+ but with removed dragging/inbounds check part
  ~ Cyclops#0001
 ]]--
 
