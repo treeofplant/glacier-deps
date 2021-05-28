@@ -2,6 +2,9 @@
 -- a simple remotespy i made in some hours to use in my project
 -- author: Cyclops#0001
 
+
+--some little todo: avoid some attack vectors to detect the remotespy
+
 local tbpk = table.pack;
 local method_map = {
     ['RemoteEvent'] = 'FireServer';
