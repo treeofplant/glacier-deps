@@ -68,7 +68,6 @@ do
     local tostring = tostring;
     local tcat = table.concat;
 
-    --local argument_visitor;
     local format_constructor_map = { --roblox's custom userdata data types ( everything looks like this till i actually change something )
         ['Color3'] = 'Color3.new(%s)'; --'Color3.new(%u, %u, %u)';
         ['ColorSequence'] = 'ColorSequence.new(%s)';
@@ -181,7 +180,7 @@ end;
 
 
 --safe thread schulder ( i made from march 2021 glacier )
-local remote_schulder = {};--safe thread schulder
+local remote_schulder = {};
 do 
     local stepped = game:GetService('RunService').Stepped;
     local ipairs = ipairs;
