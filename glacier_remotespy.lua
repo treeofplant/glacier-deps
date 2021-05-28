@@ -22,7 +22,8 @@ do
     local stmatch = string.match;
     local common_start = 'game';
     local game = game;
-
+    local workspace = workspace;
+    
     --[[
         \brief o - Instance to get the full name
         \return Unknown string - full name of instance
@@ -41,7 +42,7 @@ do
                 n = stfmt('[%q]', n);
                 tins(parent_tree, 1, n);
             elseif (p == game) then
-                if (n == 'Workspace') then
+                if (n == workspace) then
                     tins(parent_tree, 1, 'workspace');
                     return tcat(parent_tree); --lazy to contiune traversing from there
                 else
