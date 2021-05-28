@@ -244,7 +244,7 @@ end;
 
 rconsoleclear();
 local remoteschud = remote_schulder.new();
-do
+do --only namecall support atm
     local cb = function(ret)
         rconsolewarn(ret); -- testing
     end;
