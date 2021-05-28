@@ -1,5 +1,6 @@
---glacier simple remotespy
---author: Cyclops#0001
+-- glacier simple remotespy
+-- a simple remotespy i made in some hours to use in my project
+-- author: Cyclops#0001
 
 local tbpk = table.pack;
 local method_map = {
