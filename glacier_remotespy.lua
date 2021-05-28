@@ -29,7 +29,7 @@ do
         local parent_tree = {};
         if (o.Parent == nil) then
             return 'nil';
-        end;
+        end
         -- tail call optimization ( not recursing till the root node unlike the others )
         while (o.Parent ~= nil) do
             local n = o.Name;
@@ -43,15 +43,15 @@ do
                     return tcat(parent_tree); --lazy to contiune traversing from there
                 else
                     tins(parent_tree, 1, stfmt(':GetService(%q)', n));
-                end;
+                end
             else
                 tins(parent_tree, 1, '.' .. n);
-            end;
+            end
             o = p; -- o = o.Parent
-        end;
+        end
         return common_start .. tcat(parent_tree);
-    end;
-end;
+    end
+end
 
 --[[
     \brief ( args... ) -> unknown tuple parameters
@@ -102,9 +102,9 @@ do
             do
                 local formatted_arg = parameter_visitor(v);
                 tins(string_table, formatted_arg);
-            end;
+            end
             t[i] = nil; -- might cause undefined behavior?
-        end;
+        end
 
         -- conv hash partition
         for k, v in pairs(t) do
@@ -112,11 +112,11 @@ do
             do
                 local formatted_arg = start .. parameter_visitor(v);
                 tins(string_table, formatted_arg);
-            end;
-        end;
+            end
+        end
 
         return tcat(string_table, ', ');
-    end;
+    end
 
     function parameter_visitor(v)
         local tt = typeof(v);
@@ -133,18 +133,18 @@ do
             local constructor_start = format_constructor_map[tt];
             if (constructor_start) then
                 return stfmt(constructor_start, tostring(v)); -- construct element as string and return the string
-            end;
-        end;
+            end
+        end
         return tostring(v);
-    end;
+    end
 
     --[[function argument_convert(args) -- small code but won't mind performance
         for i = 1, args.n do
             args[i] = parameter_visitor(args[i]);
-        end;
+        end
         return tcat(args, ', ');
-    end;]]
-end;
+    end]]
+end
 
 local generate_script;
 do
@@ -164,19 +164,19 @@ do
                     local formatted_params = info.parameters;
                     for i = 1, formatted_params.n do
                         formatted_params[i] = parameter_visitor(formatted_params[i]);
-                    end;
+                    end
                     tins(result, stfmt(':%s(%s)', method, tcat(formatted_params, ', ')));
                     formatted_params = nil;
-                end;
+                end
             else
                 tins(result, ' -- error: method in method map is nil?\n');
-            end;
+            end
         else
             tins(result, '-- error: instance param is nil or is not an instance?\n')
-        end;
+        end
         return info.callback(tcat(result));
-    end;
-end;
+    end
+end
 
 
 --safe thread schulder ( i made from march 2021 glacier )
@@ -194,41 +194,41 @@ do
         for i, v in ipairs(remote_schulder_jobs) do
             v:deconstruct();
             v = nil;
-        end;
+        end
         table.clear(remote_schulder_jobs);
-    end;
+    end
 
     function remote_schulder:deconstruct()
         local schulder_connection = self.schulder_connection;
         if (schulder_connection) then
             schulder_connection:Disconnect();
             schulder_connection = nil;
-        end;
+        end
         table.clear(self.thread_deque);
-    end;
+    end
 
     function remote_schulder:enqueue(o)
         o.co = coroutine.create(generate_script);
         return tins(self.thread_deque, o); --push node to front
-    end;
+    end
 
     function remote_schulder.new()
         local thread_deque = setmetatable({ }, MODE_V_MT);  --ordered list (priority time)
         if (#remote_schulder_jobs > 0) then --cleanup
             remote_schulder:clear();
-        end;
+        end
         local schulder_init = setmetatable({
             schulder_connection = stepped:Connect(function()
                 if (#thread_deque == 0) then
                     return;
-                end;
+                end
                 local busy_thread = tpop(thread_deque, 1); --threads
                 --todo checks
 
                 if (busy_thread.instance ~= nil) then --do
                     return assert(coroutine.resume(busy_thread.co, busy_thread), 'couldnt resume (error generate script schulder)'); --unless await
-                --end;
-                end;
+                --end
+                end
                 tins(thread_deque, 1, busy_thread); --push busy thread to back again
             end);
             thread_deque = thread_deque;
@@ -236,8 +236,8 @@ do
         }, remote_schulder);
         tins(remote_schulder_jobs, schulder_init);
         return schulder_init;
-    end;
-end;
+    end
+end
 
 --example
 
@@ -246,7 +246,7 @@ local remoteschud = remote_schulder.new();
 do --only namecall support atm
     local cb = function(ret)
         rconsolewarn(ret); -- testing
-    end;
+    end
 
     local getnamecallmethod = getnamecallmethod;
     local mt = getrawmetatable(game);
@@ -260,7 +260,7 @@ do --only namecall support atm
                 parameters = tbpk(...);
                 callback = cb;
             });
-        end;
+        end
         return oldnc(self, ...);
     end)
-end;
+end
