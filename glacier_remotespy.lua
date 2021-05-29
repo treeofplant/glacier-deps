@@ -13,6 +13,43 @@ local method_map = {
     ['BindableFunction'] = 'Invoke';
 };
 
+--%q is fucked up really lua?
+local escape;
+do
+    local esc = {
+        ['\0'] = '\\0'; -- wont affect within c calls
+        ['\n'] = '\\n';
+        ['\t'] = '\\t';
+        ['\v'] = '\\v';
+        ['\\'] = '\\\\';
+    };
+    local tins = table.insert;
+
+    do
+        local char = string.char;
+        local strfmt = string.format;
+        for i = 1, 32 do
+            if (i < 9 or i > 11) then
+                esc[char(i)] = strfmt('\\%X', i);
+            end
+        end
+        
+        for i = 126, 255 do
+            esc[char(i)] = strfmt('\\%X', i);
+        end
+    end
+    
+    function escape(str) --we dont need to escape quotes since %q already does it
+        local strstream = {};
+        for f, l in utf8.graphemes(str) do
+            local g = str:sub(f, l);
+            g = g:gsub('[^\32-\126]*[\\v\\t\\n\\r\\]?', esc);
+            tins(strstream, g);
+        end
+        return table.concat(strstream, '');
+    end
+end
+
 local get_full_name;
 do
     local tins = table.insert;
@@ -126,7 +163,7 @@ do
         local tt = typeof(v);
         --switch for the types we need to actually handle in this case
         if (for_types[tt]) then
-            return stfmt('%q', tostring(v)); -- i literally dont get the point why other remote spies make their own custom shit implementation of escaping retarded utf8 instead of using a inbuilt implementation
+            return stfmt('"%s"', escape(tostring(v))); -- i literally dont get the point why other remote spies make their own custom shit implementation of escaping retarded utf8 instead of using a inbuilt implementation
         elseif (tt == 'table') then
             return stfmt('{ %s }', convert_table(v));
         elseif (tt == 'boolean') then
