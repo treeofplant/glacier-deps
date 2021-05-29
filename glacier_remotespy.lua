@@ -20,8 +20,10 @@ do
         ['\0'] = '\\0'; -- wont affect within c calls
         ['\n'] = '\\n';
         ['\t'] = '\\t';
+        ['\"'] = '\\"';
         ['\v'] = '\\v';
         ['\\'] = '\\\\';
+        ['"'] = '\\"';
     };
     local tins = table.insert;
 
@@ -40,16 +42,13 @@ do
     end
     
     function escape(str)
-        local strstream = {};
+        local tokstream = {};
         for f, l in utf8.graphemes(str) do
             local g = str:sub(f, l);
-            if (g == '"') then
-                g = '\"';
-            end;
-            g = g:gsub('[^\32-\126]*[\\v\\t\\n\\r\\]?', esc);
-            tins(strstream, g);
+            g = g:gsub('[^\32-\126]*[\\v\\t\\n\\r\\]?"?', esc); --kinda shit might change up later
+            tins(tokstream, g);
         end
-        return table.concat(strstream, '');
+        return table.concat(tokstream, '');
     end
 end
 
@@ -166,7 +165,7 @@ do
         local tt = typeof(v);
         --switch for the types we need to actually handle in this case
         if (for_types[tt]) then
-            return stfmt('"%s"', escape(tostring(v)));
+            return stfmt('"%s"', escape(tostring(v))); -- i literally dont get the point why other remote spies make their own custom shit implementation of escaping retarded utf8 instead of using a inbuilt implementation
         elseif (tt == 'table') then
             return stfmt('{ %s }', convert_table(v));
         elseif (tt == 'boolean') then
