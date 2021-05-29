@@ -23,7 +23,6 @@ do
         ['\"'] = '\\"';
         ['\v'] = '\\v';
         ['\\'] = '\\\\';
-        ['"'] = '\\"';
     };
     local tins = table.insert;
 
@@ -45,7 +44,11 @@ do
         local tokstream = {};
         for f, l in utf8.graphemes(str) do
             local g = str:sub(f, l);
-            g = g:gsub('[^\32-\126]*[\\v\\t\\n\\r\\]?"?', esc); --kinda shit might change up later
+            if (g == '"') then --for sum cases
+                g = '\\"';
+            else
+                g = g:gsub('[^\32-\126]*[\\v\\t\\n\\r\\]?', esc); --kinda shit might change up later
+            end
             tins(tokstream, g);
         end
         return table.concat(tokstream, '');
