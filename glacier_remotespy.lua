@@ -40,7 +40,7 @@ do
         end
     end
     
-    function escape(str)
+    function escape(str) -- gonna optimize this function later on ( kind of slow)
         local tokstream = {};
         for f, l in utf8.graphemes(str) do
             local g = str:sub(f, l);
