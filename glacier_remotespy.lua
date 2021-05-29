@@ -20,6 +20,7 @@ do
         ['\0'] = '\\0'; -- wont affect within c calls
         ['\n'] = '\\n';
         ['\t'] = '\\t';
+        ['\"'] = '\\"';
         ['\v'] = '\\v';
         ['\\'] = '\\\\';
     };
@@ -39,7 +40,7 @@ do
         end
     end
     
-    function escape(str) --we dont need to escape quotes since %q already does it
+    function escape(str)
         local strstream = {};
         for f, l in utf8.graphemes(str) do
             local g = str:sub(f, l);
