@@ -90,5 +90,6 @@ do --uses hsv model
 	local s = floor((r / cR) * 255); -- convert to 255%'s to round s to 255 later on ( could been probably done with modulo for more optimization )
 	
 	--result : h, s, constantB
+	cursorPicker.Position = UDim2.fromOffset(x, y); --cursorPicker variable has been in the original version
 	script.Parent.Frame.BackgroundColor3 = Color3.fromHSV(h / 360, s / 255, constantB / 255);
 end
