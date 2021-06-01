@@ -1,6 +1,6 @@
 --[[ 
  glacier ui color picker
- but with removed dragging/inbounds check part
+ but with removed dragging part which is only 20 small lines with nothing lol
  testing : https://cdn.discordapp.com/attachments/819718479627943966/843541085845979176/UkLVKGwtMH.gif
  ~ Cyclops#0001
 ]]--
