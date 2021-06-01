@@ -39,7 +39,7 @@ do
 		hue = (180 * hue) / math.pi; --convert hue
 		if (hue == 360) then
 			return hue;
-		end;
+		end
 
 		local m0, m1, m2, m3 = 0, 0, 0, 0;
 		for from, to in pairs(fromToPairMap) do
@@ -48,12 +48,12 @@ do
 				m0, m1 = pmin, pmax;
 				m2, m3 = unpack(from);
 				break;
-			end;
-		end;
+			end
+		end
 
 		return m2 + (hue - m0) * ((m3 - m2) / (m1 - m0)); -- interpolation
-	end;
-end;
+	end
+end
 
 do --uses hsv model
 	--what we need to do: get the hue and saturation from the circle using our data in this problem.
@@ -75,7 +75,7 @@ do --uses hsv model
 
 	if (alpha < 0) then -- alpha got negative, and since atan2 domain must be [0 < res < 2pi] we add +2pi, we dont need a while loop here since alpha wouldn't be that big.
 		alpha = alpha + (2 * math.pi); -- transform alpha
-	end;
+	end
 
 	-- radius normalization
 	if (r > cR) then --radius is over the normal circle's radius?
@@ -84,11 +84,11 @@ do --uses hsv model
 		-- we use trigo identifies then we normalize the circle using multiplying our normal radius with the result.
 		x = (r * (1 - cose(alpha)));
 		y = (r * (1 - sine(alpha)));
-	end;
+	end
 
 	local h = mapRelativeHue(alpha); -- map to relative hue using our algorithm
 	local s = floor((r / cR) * 255); -- convert to 255%'s to round s to 255 later on ( could been probably done with modulo for more optimization )
 	
 	--result : h, s, constantB
 	script.Parent.Frame.BackgroundColor3 = Color3.fromHSV(h / 360, s / 255, constantB / 255);
-end;
+end
