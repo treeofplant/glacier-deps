@@ -17,7 +17,7 @@ local floor = math.floor;
 local cose = math.cos;
 local sine = math.sin;
 
-local cR = script.Parent.Size.X.Offset / 2;
+local cR = script.Parent.Size.X.Offset / 2; -- circle radius
 local pH = script.Parent.Size.Y.Offset;
 local pX = script.Parent.AbsolutePosition.X;
 local pY = script.Parent.AbsolutePosition.Y;
@@ -55,7 +55,7 @@ do
 	end;
 end;
 
-do --uses hsv model
+do --uses hsv model, 2D maths
 	--what we need to do: get the hue and saturation from the circle using our data in this problem.
 	local cabsP = cursorPicker.AbsolutePosition;
 	local cabsS = cursorPicker.AbsoluteSize;
