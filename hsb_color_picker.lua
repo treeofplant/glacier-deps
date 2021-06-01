@@ -74,7 +74,7 @@ do --uses hsv model
 	local alpha = atan2(dry, drx); -- find the positive angle when we got (drx, dry) ( used for hue later )
 
 	if (alpha < 0) then -- alpha got negative, and since atan2 domain must be [0 < res < 2pi] we add +2pi, we dont need a while loop here since alpha wouldn't be that big.
-		alpha = alpha + (2 * math.pi);
+		alpha = alpha + (2 * math.pi); -- transform alpha
 	end;
 
 	-- radius normalization
@@ -86,10 +86,6 @@ do --uses hsv model
 		y = (r * (1 - sine(alpha)));
 	end;
 
-	-- (transformation) round x, y plot
-	x = floor(x + 0.5);
-	y = floor(y + 0.5);
-	
 	local h = mapRelativeHue(alpha); -- map to relative hue using our algorithm
 	local s = floor((r / cR) * 255); -- convert to 255%'s to round s to 255 later on ( could been probably done with modulo for more optimization )
 	
