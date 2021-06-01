@@ -21,7 +21,7 @@ local cR = script.Parent.Size.X.Offset / 2; -- circle radius
 local pH = script.Parent.Size.Y.Offset;
 local pX = script.Parent.AbsolutePosition.X;
 local pY = script.Parent.AbsolutePosition.Y;
-local constantB = 255; --hsb value const
+local constantV = 255; --hsv value const
 
 local cursorPicker = script.Parent.pi;
 
@@ -91,5 +91,5 @@ do --uses hsv model
 	
 	--result : h, s, constantB
 	cursorPicker.Position = UDim2.fromOffset(x, y); --cursorPicker variable has been in the original version
-	script.Parent.Frame.BackgroundColor3 = Color3.fromHSV(h / 360, s / 255, constantB / 255);
+	script.Parent.Frame.BackgroundColor3 = Color3.fromHSV(h / 360, s / 255, constantV / 255);
 end
