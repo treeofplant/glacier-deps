@@ -60,7 +60,7 @@ do --uses hsv model
 	local cabsP = cursorPicker.AbsolutePosition;
 	local cabsS = cursorPicker.AbsoluteSize;
 	
-	--lets pretend cX, cY are our current input position
+	--lets pretend cX, cY are our current input position, couldv'e used vector2 for the plot aswell.
 	local cX, cY = cabsP.X, cabsP.Y; --cabsP.X + (cabsS.X / 2), cabsP.Y + (cabsS.Y / 2);
 
 	-- convert the position plot into element's space (relative from the viewport) and round it.
