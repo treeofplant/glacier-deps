@@ -51,7 +51,7 @@ do
 			end;
 		end;
 
-		return m2 + (hue - m0) * ((m3 - m2) / (m1 - m0));
+		return m2 + (hue - m0) * ((m3 - m2) / (m1 - m0)); -- interpolation
 	end;
 end;
 
