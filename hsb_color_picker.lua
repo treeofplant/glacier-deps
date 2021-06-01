@@ -91,7 +91,7 @@ do --uses hsv model
 	y = floor(y + 0.5);
 	
 	local h = mapRelativeHue(alpha); -- map to relative hue using our algorithm
-	local s = floor((r / cR) * 255); -- convert to 255%'s to round s to 255 later on
+	local s = floor((r / cR) * 255); -- convert to 255%'s to round s to 255 later on ( could been probably done with modulo for more optimization )
 	
 	--result : h, s, constantB
 	script.Parent.Frame.BackgroundColor3 = Color3.fromHSV(h / 360, s / 255, constantB / 255);
