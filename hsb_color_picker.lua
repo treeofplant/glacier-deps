@@ -55,7 +55,7 @@ do
 	end;
 end;
 
-do --uses hsv model, 2D maths
+do --uses hsv model
 	--what we need to do: get the hue and saturation from the circle using our data in this problem.
 	local cabsP = cursorPicker.AbsolutePosition;
 	local cabsS = cursorPicker.AbsoluteSize;
