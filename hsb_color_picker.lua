@@ -69,9 +69,10 @@ do --uses hsv model
 
 	-- a new plot, lets make a new triangle across the diameter of the circle ( makes it a 90 degree because arcs to diameter, simple circle theorems. )
 	local drx, dry = cR - x, cR - y;
+	--also will be our slope
 	
 	local r = sqrt(drx * drx + dry * dry); -- [drx^2 + dry^2 = r^2] ( find radius using pytahgoras )
-	local alpha = atan2(dry, drx); -- find the positive angle when we got (drx, dry), also this will be similar to arctan(delta m aka slope), ( used for hue later )
+	local alpha = atan2(dry, drx); -- find the positive angle when we got (drx, dry), also this will be similar to arctan(m aka slope), ( used for hue later )
 
 	if (alpha < 0) then -- alpha got negative, and since atan2 domain must be [0 < res < 2pi] we add +2pi, we dont need a while loop here since alpha wouldn't be that big.
 		alpha = alpha + (2 * math.pi); -- transform alpha
