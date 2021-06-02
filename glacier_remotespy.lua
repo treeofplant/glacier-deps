@@ -40,7 +40,7 @@ do
         end
     end
     
-    -- escape could be solved using the frontier pattern, update coming later
+    -- escape could be solved in a more efficent way using the frontier pattern, update coming later
     
     function escape(str) -- gonna optimize this function later on ( kind of slow)
         local tokstream = {};
