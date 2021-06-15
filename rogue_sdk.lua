@@ -208,9 +208,8 @@ do
         end
 
         function patcher_class:full_patch()
-            local current_job = self.patcher_job_;
-            if (not current_job:get_resolved()) then
-                current_job:resolve();
+            if (not self.patcher_job_:get_resolved()) then
+                self.patcher_job_:resolve();
             end
 
             if (not self:patch_stack() or not self:patch_protos()) then
