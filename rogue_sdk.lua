@@ -98,7 +98,7 @@ do
             return self.code_[self.stk_idx_];
         end
 
-        function patcher_job:init(code) -- move construct code
+        function patcher_job.init(code) -- move construct code
             return setmetatable({
                 code_ = code;
                 stk_idx_ = nil;
@@ -134,14 +134,14 @@ do
             -- todo
         end
 
-        function patcher_class:get_singleton()
+        function patcher_class.get_singleton()
             if (patcher_singleton == nil) then
-                patcher_singleton = patcher_class:init();
+                patcher_singleton = patcher_class.init();
             end
             return patcher_class;
         end
 
-        function patcher_class:init()
+        function patcher_class.init()
             return setmetatable({
                 -- running_jobs_ = { };
                 patcher_job_ = nil; -- composited patcher job struct
@@ -240,11 +240,11 @@ do
     end
 
     -- main (patch, etc)
-    local patcher_singleton = patcher_class:get_singleton();
+    local patcher_singleton = patcher_class.get_singleton();
 
     --couldv'e made a function for this tbh
     do -- patch keyhandler_main
-        local new_job = patcher_job:init(getupvalues(keyhandler_main));
+        local new_job = patcher_job.init(getupvalues(keyhandler_main));
 
         patcher_singleton:set_job(new_job);
         if (not patcher_singleton:full_patch()) then
@@ -255,7 +255,7 @@ do
     local get_key, set_key = unpack(keyhandler_main()); -- get, set
 
     do -- patch get key
-        local new_job = patcher_job:init(getupvalues(get_key));
+        local new_job = patcher_job.init(getupvalues(get_key));
 
         patcher_singleton:set_job(new_job);
         if (not patcher_singleton:full_patch()) then
