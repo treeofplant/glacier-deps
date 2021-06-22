@@ -98,9 +98,9 @@ do
             return self.code_[self.stk_idx_];
         end
 
-        function patcher_job.init(code) -- move construct code
+        function patcher_job.init(func) -- move construct func
             return setmetatable({
-                code_ = code;
+                code_ = getupvalues(func);
                 stk_idx_ = nil;
                 proto_idx_ = nil;
             }, patcher_job);
@@ -244,7 +244,7 @@ do
 
     --couldv'e made a function for this tbh
     do -- patch keyhandler_main
-        local new_job = patcher_job.init(getupvalues(keyhandler_main));
+        local new_job = patcher_job.init(keyhandler_main);
 
         patcher_singleton:set_job(new_job);
         if (not patcher_singleton:full_patch()) then
@@ -255,7 +255,7 @@ do
     local get_key, set_key = unpack(keyhandler_main()); -- get, set
 
     do -- patch get key
-        local new_job = patcher_job.init(getupvalues(get_key));
+        local new_job = patcher_job.init(get_key);
 
         patcher_singleton:set_job(new_job);
         if (not patcher_singleton:full_patch()) then
