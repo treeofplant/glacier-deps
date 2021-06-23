@@ -8,6 +8,8 @@
     https://discord.io/glacier_
 ]]
 
+-- hello sor/introvert, please stop staring at this
+
 local game = game;
 local g_mt = getrawmetatable(game);
 local players = game:GetService('Players');
