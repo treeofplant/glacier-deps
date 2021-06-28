@@ -36,7 +36,7 @@ local function parse_requirements(quests_root) -- yeah this is old, new one is a
     return requirement_struct;
 end
 
-local function populate_interaction_stack(root)
+local function populate_interaction_stack(root) --  for game dialoges, root must start inside.
     -- assuming interaction as an unsorted binary tree, where left node is continue interaction with npc and right is stop.
     local interaction_stack = { }; -- assuming LIFO stack
     root = root.Parent;
