@@ -36,21 +36,21 @@ local function parse_requirements(quests_root) -- yeah this is old, new one is a
     return requirement_struct;
 end
 
-local function populate_interaction_stack(root) --  for game dialoges, root must start inside.
+local function populate_interaction_stack(node) --  for game dialoges, node must start inside.
     -- assuming interaction as an unsorted binary tree, where left node is continue interaction with npc and right is stop.
     local interaction_stack = { }; -- assuming LIFO stack
-    root = root.Parent;
-    while (root ~= nil) do
-        local name = root.Name;
+    node = node.Parent;
+    while (node ~= nil) do
+        local name = node.Name;
         if (name == 'Chat') then
-            if (root.ClassName == 'Folder') then
+            if (node.ClassName == 'Folder') then
                 break;
             end
             table_insert(interaction_stack, 1, 'k'); -- push to begin, we could also push Chat instead (epic moment)
-        elseif (name ~= 'Choice' and root.ClassName ~= 'Folder') then
+        elseif (name ~= 'Choice' and node.ClassName ~= 'Folder') then
             table_insert(interaction_stack, 1, name);
         end
-        root = root.Parent;
+        node = node.Parent;
     end
     return interaction_stack;
 end
