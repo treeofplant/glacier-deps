@@ -5,10 +5,10 @@
 ]]
 
 local enum_quest_color = { -- made tostring cause of comparsion breaking
-    requirement = tostring(Color3.fromRGB(255, 204, 0)); --defeat: etc
-    completed = tostring(Color3.fromRGB(51, 204, 51));
-    note = tostring(Color3.fromRGB(204, 51, 51)); --rewards:
-    reward = tostring(Color3.new(1, 1, 1)); --Zenni, EXP
+    requirement = tostring(Color3.fromRGB(255, 204, 0)); -- Defeat etc
+    completed = tostring(Color3.fromRGB(51, 204, 51)); -- Completed requirements as a part of more than 1 requirement quest with underscore.
+    note = tostring(Color3.fromRGB(204, 51, 51)); -- Rewards
+    reward = tostring(Color3.new(1, 1, 1)); -- Zenni, EXP
 };
 
 local function parse_requirements(quests_root) -- yeah this is old, new one is a class and just parses on initialization and has every function
