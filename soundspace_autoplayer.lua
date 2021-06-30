@@ -1,6 +1,7 @@
 --glacier's soundspace autoplayer
 --made by Cyclops#0001
- 
+--might be outdated idfk
+
 --setings
 local maxLerpSpeed = 1; --make max lerp speed higher if ur doing on harder maps, i.e. dangerous slot (your perference)
 local cursorTrail = true; --enable/disable cursor trail
@@ -14,7 +15,7 @@ local setconstant = setconstant or debug.setconstant;
 local u = getsenv(gamescript);
 local r = getupvalue(u.ClearNotes, 1);
 local updateSaber = u.UpdateSaber;
-local cubeTree = {}; --setmetatable({}, { __mode = 'v' }); --cube tree stack
+local cubeTree = {};
  
 local tins = table.insert;
 local rawset = rawset;
@@ -87,7 +88,7 @@ do --main
                elapsedCubeTime = elapsedCubeTime + frameDelta;
                local v = Vector3.new(-p.Size.X / 2, (node.Y * 2) + 1, (node.Z * 2) - 2);
                local sm = (v - Vector3.new(-c.Size.X / 2, c.Position.Y, c.Position.Z)).magnitude;
-               local t = (abs(node.Time - lastMapTime) / elapsedCubeTime);
+               local t = (abs(node.Time - lastMapTime) / elapsedCubeTime); --omg just use math.noise
                do --for random uniform point in surface
                    local t = tick();
                    local b = max(node.Time - lastMapTime, 0);
