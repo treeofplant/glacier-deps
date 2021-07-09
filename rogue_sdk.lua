@@ -207,8 +207,7 @@ do
             -- destruct the patcher job
             self.patcher_job_:destruct();
             self.patcher_job_ = nil;
-
-            self:set_state(enum_patcher_state.finished);
+            
             return true;
         end
 
@@ -222,7 +221,6 @@ do
 
         function patcher_class:destruct()
             self.patcher_job_ = nil;
-            self.state_ = nil;
             self = nil;
         end
     end
