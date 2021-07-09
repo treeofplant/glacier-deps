@@ -118,20 +118,6 @@ do
 
         --patcher class
 
-        local enum_patcher_state = {
-            idle = 0;
-            running = 1;
-            dead = 2;
-        };
-
-        function patcher_class:get_state()
-            return self.state_;
-        end
-
-        function patcher_class:set_state(state)
-            self.state_ = state;
-        end
-
         function patcher_class:resolve_symbols()
             -- todo
         end
